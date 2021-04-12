@@ -13,6 +13,7 @@ import java.util.*;
  * 让轮训器去阻塞，轮训器判断是否有请求时间发生，是否有读数据的事件发生，是否有写数据的事件发生
  * 如果都没有，轮训器就阻塞等待，让出cpu资源
  * 任何一个事件发生（请求，读，写），轮训器就被打通，这时主线程开始处理事件
+ * 存在的问题，一个cpu8核如何合理利用
  */
 public class Server3 {
     public static void main(String[] args) {
@@ -52,8 +53,9 @@ public class Server3 {
                         System.out.println(new String(byteBuffer.array(),0,read));
                     }else if(next.isAcceptable()){
                         System.out.println("监听事件");
-                        SocketChannel accept = serverSocketChannel.accept();
-                        accept.register(selector,SelectionKey.OP_READ);
+                        SocketChannel socketChannel = serverSocketChannel.accept();
+                        socketChannel.configureBlocking(false);
+                        socketChannel.register(selector,SelectionKey.OP_READ);
                     }else if(next.isWritable()){
                         System.out.println("写数据事件");
                     }

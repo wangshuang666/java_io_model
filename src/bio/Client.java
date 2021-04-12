@@ -25,6 +25,7 @@ public class Client {
                 if(str.equalsIgnoreCase("quit")){
                     break;
                 }
+                //什么带着客户端编号：，因为这里
                 outputStream.write(number.concat(":").concat(str).getBytes());
             }
             System.out.println("客户端".concat(number).concat("连接中断"));

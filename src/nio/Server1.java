@@ -10,6 +10,7 @@ import java.nio.channels.SocketChannel;
 /**
  * 为什么会阻塞？线程在等待资源，等待客户端输入数据 cpu资源就释放出来了
  * 怎么让线程不阻塞，ServerSocketChannel ServerSocket通道，可读可写
+ * 读不到数据怎么办？？？？？？？？？？？？
  */
 public class Server1 {
     public static void main(String[] args) {
